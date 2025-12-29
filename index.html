@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rooms Interior Design Studio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .container-narrow {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Navigation */
+      nav {
+        position: sticky;
+        top: 0;
+        background-color: #ffffff;
+        border-bottom: 1px solid #333333;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        z-index: 1000;
+        padding: 16px 20px;
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        height: 50px;
+        width: auto;
+      }
+
+      .desktop-menu {
+        display: none;
+        gap: 32px;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: #000000;
+        font-size: 14px;
+        transition: color 0.3s;
+        padding: 8px 0;
+      }
+
+      .nav-link:hover {
+        color: #333333;
+      }
+
+      .menu-toggle {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mobile-menu {
+        display: none;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #333333;
+      }
+
+      .mobile-menu.active {
+        display: block;
+      }
+
+      .mobile-menu a {
+        display: block;
+        padding: 16px 8px;
+        color: #000000;
+        text-decoration: none;
+        border-bottom: 1px solid #f5f5f5;
+        transition: background-color 0.3s;
+      }
+
+      .mobile-menu a:hover {
+        background-color: #f5f5f5;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 80px 20px;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        letter-spacing: -0.02em;
+      }
+
+      .hero p {
+        font-size: 20px;
+        color: #333333;
+        margin-bottom: 48px;
+        letter-spacing: 0.05em;
+      }
+
+      .decorative-line {
+        width: 60px;
+        height: 1px;
+        background-color: #333333;
+        margin: 0 auto 32px;
+      }
+
+      /* Sections */
+      section {
+        padding: 64px 20px;
+      }
+
+      .bg-gray {
+        background-color: #f5f5f5;
+      }
+
+      h2 {
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .section-text {
+        font-size: 18px;
+        line-height: 1.8;
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Philosophy Grid */
+      .philosophy-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .philosophy-card {
+        border: 1px solid #333333;
+        padding: 40px;
+        background-color: #f5f5f5;
+        text-align: center;
+      }
+
+      .philosophy-card .icon {
+        font-size: 32px;
+        margin-bottom: 24px;
+      }
+
+      .philosophy-card h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .philosophy-card p {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .values-list {
+        margin-top: 24px;
+      }
+
+      .value-item {
+        margin-bottom: 16px;
+      }
+
+      .value-item .title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #333333;
+        margin-bottom: 4px;
+      }
+
+      .value-item .desc {
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      /* Gallery */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .gallery-item {
+        overflow: hidden;
+        border: 1px solid #333333;
+        aspect-ratio: 4/3;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Contact */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .contact-card {
+        border: 1px solid #333333;
+        padding: 32px;
+      }
+
+      .contact-card h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #333333;
+        margin-bottom: 24px;
+        text-align: left;
+      }
+
+      .contact-item {
+        margin-bottom: 16px;
+      }
+
+      .contact-item .label {
+        font-size: 13px;
+        color: #666666;
+        margin-bottom: 4px;
+      }
+
+      .contact-item .value {
+        font-size: 15px;
+      }
+
+      .contact-item a {
+        color: #000000;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .contact-item a:hover {
+        color: #333333;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 0;
+        color: #000000;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .social-link:hover {
+        color: #333333;
+      }
+
+      .social-link .icon {
+        font-size: 24px;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 48px 20px;
+        border-top: 1px solid #333333;
+      }
+
+      footer p {
+        font-size: 13px;
+        color: #666666;
+      }
+
+      /* Fade-in Animation */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Responsive */
+      @media (min-width: 768px) {
+        .desktop-menu {
+          display: flex;
+        }
+
+        .menu-toggle {
+          display: none;
+        }
+
+        .hero h1 {
+          font-size: 64px;
+        }
+
+        .hero p {
+          font-size: 24px;
+        }
+
+        h2 {
+          font-size: 48px;
+        }
+
+        .philosophy-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 48px;
+        }
+
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .contact-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 48px;
+        }
+
+        section {
+          padding: 96px 24px;
+        }
+
+        .hero {
+          padding: 128px 24px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .gallery-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .logo {
+          height: 50px;
+        }
+      }
+    </style>
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+    <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+    <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-container">
+        <img
+          src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/logo%20rooms.png"
+          alt="Rooms Interior Design Studio"
+          class="logo"
+          onerror="this.style.display='none';"
+        />
+        <div class="desktop-menu">
+          <a href="#esencia" class="nav-link">Esencia</a>
+          <a href="#filosofia" class="nav-link">Filosofía</a>
+          <a href="#galeria" class="nav-link">Galería</a>
+          <a href="#contacto" class="nav-link">Contacto</a>
+        </div>
+        <button class="menu-toggle" id="menu-toggle">
+          <span id="menu-icon">☰</span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="#esencia" class="mobile-link">Esencia</a>
+        <a href="#filosofia" class="mobile-link">Filosofía</a>
+        <a href="#galeria" class="mobile-link">Galería</a>
+        <a href="#contacto" class="mobile-link">Contacto</a>
+      </div>
+    </nav>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container-narrow">
+        <div class="decorative-line"></div>
+        <h1>Rooms Interior Design Studio</h1>
+        <p>Donde el silencio habla en susurros de belleza</p>
+        <div class="decorative-line"></div>
+      </div>
+    </section>
+    <!-- About -->
+    <section id="esencia" class="bg-gray">
+      <div class="container-narrow fade-in">
+        <h2>Nuestra Esencia</h2>
+        <p class="section-text">
+          Somos alquimistas del espacio y el tiempo. Tejemos luz, textura y
+          memoria en cada estancia. Aquí, el diseño no se observa, se respira.
+          Cada superficie es un lienzo, cada sombra una caricia, cada objeto un
+          verso en la sinfonía del habitar consciente.
+        </p>
+      </div>
+    </section>
+    <!-- Philosophy -->
+    <section id="filosofia">
+      <div class="container">
+        <div class="philosophy-grid">
+          <div class="philosophy-card fade-in">
+            <div class="icon">◈</div>
+            <h3>Nuestra Promesa</h3>
+            <p>
+              Esculpir refugios donde el alma se reconoce. Honramos la belleza
+              imperfecta del wabi-sabi, abrazamos la serenidad del vacío,
+              celebramos la historia que guardan las cosas. Creamos espacios que
+              no gritan, sino que susurran elegancia eterna.
+            </p>
+          </div>
+          <div class="philosophy-card fade-in">
+            <div class="icon">◈</div>
+            <h3>Nuestro Horizonte</h3>
+            <p>
+              Ser poetas del espacio tridimensional. Arquitectos de la quietud.
+              Custodios de una estética donde lo exquisito y lo austero danzan
+              en perfecta armonía. Donde el lujo se mide en silencio, textura y
+              luz tamizada.
+            </p>
+          </div>
+          <div class="philosophy-card fade-in">
+            <div class="icon">◈</div>
+            <h3>Nuestra Filosofía</h3>
+            <div class="values-list">
+              <div class="value-item">
+                <div class="title">Contemplación</div>
+                <div class="desc">Diseñamos templos para la mirada serena</div>
+              </div>
+              <div class="value-item">
+                <div class="title">Impermanencia</div>
+                <div class="desc">
+                  Celebramos la belleza que envejece con gracia
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="title">Esencialidad</div>
+                <div class="desc">
+                  Lo superfluo se disuelve, lo verdadero permanece
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="title">Alma</div>
+                <div class="desc">Cada espacio late con vida propia</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Gallery -->
+    <section id="galeria">
+      <div class="container fade-in">
+        <h2>Nuestra Galería</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/eclectico%20.jpg"
+              alt="Proyecto 1"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/2.jpg"
+              alt="Proyecto 2"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/4.jpg"
+              alt="Proyecto 3"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/5.jpg"
+              alt="Proyecto 4"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/6.jpg"
+              alt="Proyecto 5"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/9.jpg"
+              alt="Proyecto 6"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/1%20deco%20(1).jpg"
+              alt="Proyecto 7"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/1%20deco%20(2).jpg"
+              alt="Proyecto 8"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/1%20deco%20(4).jpg"
+              alt="Proyecto 9"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/1%20deco%20(6).jpg"
+              alt="Proyecto 10"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/1%20deco%20(9).jpg"
+              alt="Proyecto 11"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/1%20deco%20(8).jpg"
+              alt="Proyecto 12"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/1%20deco%20(7).jpg"
+              alt="Proyecto 13"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/sillones%20(1).jpg"
+              alt="Proyecto 14"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/sillones%20(2).jpg"
+              alt="Proyecto 15"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/sillones%20(3).jpg"
+              alt="Proyecto 16"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/sillones%20(4).jpg"
+              alt="Proyecto 17"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://raw.githubusercontent.com/indigolilobarcena-eng/roomsstudio/refs/heads/main/sillones%20(6).jpg"
+              alt="Proyecto 18"
+              onerror="this.style.display='none';"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact -->
+    <section id="contacto" class="bg-gray">
+      <div class="container fade-in">
+        <h2>Encuéntranos</h2>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Visítanos</h3>
+            <div class="contact-item">
+              <div class="label">Dirección</div>
+              <div class="value">
+                Toltecas #166, San Pedro de los Pinos, 01180
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="label">Teléfono</div>
+              <div class="value">
+                <a href="tel:5610516440">56 1051 6440</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="label">Sitio Web</div>
+              <div class="value">
+                <a
+                  href="https://www.RoomsInteriorDesignStudio.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >www.RoomsInteriorDesignStudio.com</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <h3>Síguenos</h3>
+            <a
+              href="https://www.instagram.com/roomsinteriordesign"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span class="icon">📷</span> <span>Instagram</span>
+            </a>
+            <a
+              href="https://www.facebook.com/roomsinteriordesign"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span class="icon">👥</span> <span>Facebook</span>
+            </a>
+            <a
+              href="https://www.tiktok.com/@roomsinteriordesign"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span class="icon">🎵</span> <span>TikTok</span>
+            </a>
+            <a
+              href="https://www.pinterest.com/roomsinteriordesign"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span class="icon">📌</span> <span>Pinterest</span>
+            </a>
+            <a
+              href="https://github.com/roomsinteriordesign"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span class="icon">🔧</span> <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+      <p>© 2024 Rooms Interior Design Studio. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+      // Fade-in animation
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+
+      // Mobile menu
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIcon = document.getElementById("menu-icon");
+
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+        menuIcon.textContent = mobileMenu.classList.contains("active")
+          ? "✕"
+          : "☰";
+      });
+
+      document.querySelectorAll(".mobile-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+          menuIcon.textContent = "☰";
+        });
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'9b5cce80d519eef2',t:'MTc2NzA0ODEwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
