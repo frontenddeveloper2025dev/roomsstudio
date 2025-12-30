@@ -326,6 +326,191 @@
         transform: translateY(0);
       }
 
+      /* Chatbot */
+      .chatbot-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 60px;
+        height: 60px;
+        background-color: #333333;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 28px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s, background-color 0.3s;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .chatbot-button:hover {
+        transform: scale(1.1);
+        background-color: #000000;
+      }
+
+      .chatbot-window {
+        position: fixed;
+        bottom: 100px;
+        right: 24px;
+        width: 350px;
+        max-width: calc(100vw - 48px);
+        height: 500px;
+        background-color: white;
+        border: 2px solid #333333;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        z-index: 1000;
+      }
+
+      .chatbot-window.active {
+        display: flex;
+      }
+
+      .chatbot-header {
+        background-color: #333333;
+        color: white;
+        padding: 16px;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chatbot-header h3 {
+        font-size: 18px;
+        margin: 0;
+        text-align: left;
+      }
+
+      .chatbot-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .chatbot-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background-color: #fafafa;
+      }
+
+      .message {
+        max-width: 80%;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message.bot {
+        background-color: #333333;
+        color: white;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+
+      .message.user {
+        background-color: #f5f5f5;
+        color: #000000;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .chatbot-options {
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border-top: 1px solid #e0e0e0;
+        background-color: white;
+      }
+
+      .option-button {
+        background-color: white;
+        border: 1px solid #333333;
+        padding: 10px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.3s;
+        text-align: left;
+      }
+
+      .option-button:hover {
+        background-color: #333333;
+        color: white;
+      }
+
+      .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 10px 14px;
+        background-color: #333333;
+        border-radius: 12px;
+        align-self: flex-start;
+        max-width: 60px;
+      }
+
+      .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        background-color: white;
+        border-radius: 50%;
+        animation: typing 1.4s infinite;
+      }
+
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typing {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.7;
+        }
+        30% {
+          transform: translateY(-10px);
+          opacity: 1;
+        }
+      }
+
       /* Responsive */
       @media (min-width: 768px) {
         .desktop-menu {
@@ -706,6 +891,34 @@
     <footer>
       <p>© 2024 Rooms Interior Design Studio. Todos los derechos reservados.</p>
     </footer>
+    <!-- Chatbot -->
+    <button class="chatbot-button" id="chatbot-button">💬</button>
+    <div class="chatbot-window" id="chatbot-window">
+      <div class="chatbot-header">
+        <h3>Asistente Rooms</h3>
+        <button class="chatbot-close" id="chatbot-close">✕</button>
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="message bot">
+          ¡Hola! Soy el asistente virtual de Rooms Interior Design Studio. ¿En
+          qué puedo ayudarte?
+        </div>
+      </div>
+      <div class="chatbot-options" id="chatbot-options">
+        <button class="option-button" data-option="servicios">
+          ¿Qué servicios ofrecen?
+        </button>
+        <button class="option-button" data-option="contacto">
+          ¿Cómo puedo contactarlos?
+        </button>
+        <button class="option-button" data-option="proyectos">
+          Ver proyectos realizados
+        </button>
+        <button class="option-button" data-option="filosofia">
+          Conocer su filosofía
+        </button>
+      </div>
+    </div>
     <script>
       // Fade-in animation
       const observer = new IntersectionObserver(
@@ -741,6 +954,124 @@
           menuIcon.textContent = "☰";
         });
       });
+
+      // Chatbot functionality
+      const chatbotButton = document.getElementById("chatbot-button");
+      const chatbotWindow = document.getElementById("chatbot-window");
+      const chatbotClose = document.getElementById("chatbot-close");
+      const chatbotMessages = document.getElementById("chatbot-messages");
+      const chatbotOptions = document.getElementById("chatbot-options");
+
+      const responses = {
+        servicios: {
+          message:
+            "Ofrecemos servicios de diseño interior completos: diseño conceptual, selección de mobiliario, coordinación de obras, y asesoría personalizada. Cada proyecto es único y se adapta a las necesidades y visión de nuestros clientes.",
+          options: ["contacto", "proyectos", "filosofia", "inicio"],
+        },
+        contacto: {
+          message:
+            "Puedes contactarnos en:<br><br>📍 Toltecas #166, San Pedro de los Pinos, 01180<br>📞 56 1051 6440<br>🌐 www.RoomsInteriorDesignStudio.com<br><br>¡Estamos listos para ayudarte a crear tu espacio ideal!",
+          options: ["servicios", "proyectos", "filosofia", "inicio"],
+        },
+        proyectos: {
+          message:
+            "Te invito a explorar nuestra galería de proyectos. Cada espacio cuenta una historia única de diseño, donde la luz, la textura y el minimalismo se combinan para crear ambientes excepcionales.",
+          options: ["servicios", "contacto", "filosofia", "inicio"],
+          action: () => {
+            setTimeout(() => {
+              document
+                .getElementById("galeria")
+                .scrollIntoView({ behavior: "smooth" });
+              chatbotWindow.classList.remove("active");
+            }, 1000);
+          },
+        },
+        filosofia: {
+          message:
+            "Nuestra filosofía se basa en el wabi-sabi y el minimalismo. Creamos espacios que respiran serenidad, donde cada elemento tiene un propósito. No diseñamos para impresionar, sino para que el alma encuentre su refugio.",
+          options: ["servicios", "contacto", "proyectos", "inicio"],
+        },
+        inicio: {
+          message: "¿En qué más puedo ayudarte?",
+          options: ["servicios", "contacto", "proyectos", "filosofia"],
+        },
+      };
+
+      const optionLabels = {
+        servicios: "¿Qué servicios ofrecen?",
+        contacto: "¿Cómo puedo contactarlos?",
+        proyectos: "Ver proyectos realizados",
+        filosofia: "Conocer su filosofía",
+        inicio: "Volver al inicio",
+      };
+
+      chatbotButton.addEventListener("click", () => {
+        chatbotWindow.classList.add("active");
+      });
+
+      chatbotClose.addEventListener("click", () => {
+        chatbotWindow.classList.remove("active");
+      });
+
+      function showTypingIndicator() {
+        const typing = document.createElement("div");
+        typing.className = "typing-indicator";
+        typing.id = "typing";
+        typing.innerHTML = "<span></span><span></span><span></span>";
+        chatbotMessages.appendChild(typing);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+
+      function removeTypingIndicator() {
+        const typing = document.getElementById("typing");
+        if (typing) {
+          typing.remove();
+        }
+      }
+
+      function addMessage(text, isUser = false) {
+        const message = document.createElement("div");
+        message.className = `message ${isUser ? "user" : "bot"}`;
+        message.innerHTML = text;
+        chatbotMessages.appendChild(message);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+
+      function updateOptions(optionKeys) {
+        chatbotOptions.innerHTML = "";
+        optionKeys.forEach((key) => {
+          const button = document.createElement("button");
+          button.className = "option-button";
+          button.setAttribute("data-option", key);
+          button.textContent = optionLabels[key];
+          button.addEventListener("click", () => handleOption(key));
+          chatbotOptions.appendChild(button);
+        });
+      }
+
+      function handleOption(option) {
+        addMessage(optionLabels[option], true);
+
+        showTypingIndicator();
+
+        setTimeout(() => {
+          removeTypingIndicator();
+          const response = responses[option];
+          addMessage(response.message);
+          updateOptions(response.options);
+
+          if (response.action) {
+            response.action();
+          }
+        }, 1000 + Math.random() * 500);
+      }
+
+      document.querySelectorAll(".option-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const option = button.getAttribute("data-option");
+          handleOption(option);
+        });
+      });
     </script>
     <script>
       (function () {
@@ -749,7 +1080,7 @@
           if (b) {
             var d = b.createElement("script");
             d.innerHTML =
-              "window.__CF$cv$params={r:'9b5cce80d519eef2',t:'MTc2NzA0ODEwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+              "window.__CF$cv$params={r:'9b5f90e5a040eef2',t:'MTc2NzA3NzAzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }
